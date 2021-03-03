@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo中Markdown语法失效问题 | Memorykk | never too late to learn</title>
+
+  
+  <meta name="author" content="Memorykk">
+  
+
+  
+  <meta name="description" content="computer,program,developer,java,linux">
+  
+
+  
+  <meta name="keywords" content="computer,study,log,tool,fragment,program,developer,java,linux">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Hexo中Markdown语法失效问题"/>
+
+  <meta property="og:site_name" content="Memorykk"/>
+
+  
+  <meta property="og:image" content="/images/favicon.ico"/>
+  
+
+  <link href="/images/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Memorykk" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Memorykk</a>
+    </h1>
+    <p class="site-description">never too late to learn</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+        <li><a href="/atom.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main  class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Hexo中Markdown语法失效问题</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/Hexo-Markdown-nonsupport.html" rel="bookmark">
+        <time class="entry-date published" datetime="2021-02-13T06:20:06.000Z">
+          2021-02-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>在Hexo站上用Markdown写博时发现好多语法失效问题，记录一下</p>
+<span id="more"></span>
+<hr>
+<p><strong>目录</strong></p>
+<ul>
+<li><a href="#1-%E8%A1%A8%E6%A0%BC%E7%9B%B4%E6%8E%A5%E4%BB%A5%E6%BA%90%E7%A0%81%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B8%B2%E6%9F%93">1.表格直接以源码显示无渲染</a></li>
+<li><a href="#2-lt-kbd-gt-%E6%97%A0%E6%A0%B7%E5%BC%8F">2.&lt;kbd&gt;无样式</a></li>
+<li><a href="#3-%E6%8F%92%E5%85%A5-lt-table-gt-%E4%B8%8D%E6%B8%B2%E6%9F%93">3.插入&lt;table&gt;不渲染</a></li>
+<li><a href="#4-%E6%8F%92%E5%85%A5HTML%E6%A0%87%E7%AD%BE%E4%BA%A7%E7%94%9F%E5%A4%A7%E9%87%8F%E6%8D%A2%E8%A1%8C">4.插入HTML标签产生大量换行</a></li>
+<li><a href="#5-%E7%9B%AE%E5%BD%95%E8%B7%B3%E8%BD%AC%E6%97%A0%E5%8F%8D%E5%BA%94">5.目录跳转无反应</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+<hr>
+<h2 id="1-表格直接以源码显示无渲染"><a href="#1-表格直接以源码显示无渲染" class="headerlink" title="1.表格直接以源码显示无渲染"></a>1.表格直接以源码显示无渲染</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>| 左对齐 | 右对齐 | 居中对齐 |<br>| :—-| —-: | :——: |<br>| 单元格aaaaaaaaaa | 单aaaaaaaaaaaaaa元格 | 单元aaaaaaaaaaa格 |<br>| 单元格 | 单元格 | 单元格 |<br>| 单 | 单 | 单 |  </p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><ul>
+<li>表格和正文之间空两行。  </li>
+<li>Markdown中生成的表格十分简洁，这倒也符合快速的特点，如果想自定义样式，通过嵌入css实现，例如本例。  </li>
+<li>我使用的Hacker主题，通用样式文件存放在themes\Hacker\source\css\base\normalize.css，对这种通用性的追加即可，其他主题同理。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">居中对齐</th>
+<th align="right">对齐</th>
+<th align="center">居中对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="left">单</td>
+<td align="right">单</td>
+<td align="center">单</td>
+</tr>
+</tbody></table>
+<h3 id="待解决"><a href="#待解决" class="headerlink" title="待解决"></a>待解决</h3><p>  表格正常显示之后，对齐方式却不生效，网上没找到和我一样问题的，不过这个需求也不大，或许只能通过css解决。</p>
+<h2 id="2-lt-kbd-gt-无样式"><a href="#2-lt-kbd-gt-无样式" class="headerlink" title="2.&lt;kbd&gt;无样式"></a>2.&lt;kbd&gt;无样式</h2><h3 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h3><p>比如这个kbd标签，Ctrl ，看起来很不明显有没有，大概率本来就这样，但是我一开始希望它是这样：<block style="display:inline-block;"><img src="/images/Hexo-Markdown-nonsupport/ctrl.PNG" class="" width="50" height="50" title="ctrl" alt="ctrl"></block></p>
+<blockquote>
+<p>提示: &lt;kbd&gt; 标签已废弃，不推荐使用，但是可以通过CSS实现丰富的效果。<br>——<a target="_blank" rel="noopener" href="https://www.runoob.com/tags/tag-kbd.html">HTML&lt;kbd&gt;标签</a></p>
+</blockquote>
+<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3><p>因为我感觉这个会很常用，但我给它加了css样式，还不错。<kbd>Ctrl</kbd></p>
+<h2 id="3-插入-lt-table-gt-不渲染"><a href="#3-插入-lt-table-gt-不渲染" class="headerlink" title="3.插入&lt;table&gt;不渲染"></a>3.插入&lt;table&gt;不渲染</h2><h3 id="问题-2"><a href="#问题-2" class="headerlink" title="问题"></a>问题</h3><p>我在HTML里面测试好table，再将整个&lt;table&gt;&lt;/table&gt;粘贴到VSC的md文件中，但是这时HTML标签不渲染，直接以源码显示。</p>
+<h3 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h3><ul>
+<li>先在md中手写&lt;table&gt;&lt;/table&gt;这两个标签，再将table里面的内容粘过去，不要开始和结束标签。</li>
+<li>或者可能是HTML代码中有空行！</li>
+</ul>
+<h2 id="4-插入HTML标签产生大量换行"><a href="#4-插入HTML标签产生大量换行" class="headerlink" title="4.插入HTML标签产生大量换行"></a>4.插入HTML标签产生大量换行</h2><h3 id="问题-3"><a href="#问题-3" class="headerlink" title="问题"></a>问题</h3><p>插入HTML标签产生大量换行</p>
+<h3 id="解决-3"><a href="#解决-3" class="headerlink" title="解决"></a>解决</h3><p>将HTML标签之间的空格删除，也就是写到一行中。</p>
+<h2 id="5-目录跳转无反应"><a href="#5-目录跳转无反应" class="headerlink" title="5.目录跳转无反应"></a>5.目录跳转无反应</h2><h3 id="问题-4"><a href="#问题-4" class="headerlink" title="问题"></a>问题</h3><p>因为本主题（或是别的问题）不会生成文章目录结构，所以我一般写完后用MarkdownAllinOne生成目录，但是点击无反应，不跳转。</p>
+<h3 id="解决-4"><a href="#解决-4" class="headerlink" title="解决"></a>解决</h3><ul>
+<li><p>首先标题里不能有符号<br>如果标题为”&amp;总结”，但MarkdownAllinOne生成目录自动链接到”#总结”，Hexo渲染出的HTML源码却是：</p>
+<p><code>&lt;h2 id=&quot;amp-总结&quot;&gt;&lt;a href=&quot;#amp-总结&quot; class=&quot;headerlink&quot; title=&quot;&amp;amp;总结&quot;&gt;&lt;/a&gt;&amp;amp;总结&lt;/h2&gt;</code></p>
+<p>这样看来，”#amp-总结”才是正确跳转。</p>
+</li>
+<li><p>若大小写原因，关闭MarkdownAllinOne扩展的自动转换小写选项<br>去<kbd>扩展设置</kbd>里关闭。  </p>
+<p><img src="/images/Hexo-Markdown-nonsupport/mdPlugin1.PNG" alt="mdPlugin2.PNG"></p>
+<p><em><strong>（！这不是必须的，只是为了方便，顺便关闭自动更新目录）</strong></em></p>
+<p><img src="/images/Hexo-Markdown-nonsupport/mdPlugin2.PNG" alt="mdPlugin1.PNG"></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>关键还得搞清楚Hexo生成的是静态页面这个大方向，然后根据自己想法发挥。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Log/">Log</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Hexo/">Hexo</a><a href="/tags/Markdown/">Markdown</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comment" class="comment">
+		<div id="gitalk-container"></div>
+	</section>
+	<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+	<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+	<script>
+		var gitalk = new Gitalk({
+			clientID: '43df1f730957f2695673',
+			clientSecret: '29fa4bdef022da54ce3ebc4ec844d1b5c418d42a',
+			repo: 'memorykkk.github.io',
+			owner: 'memorykkk',
+			admin: ['memorykkk'],
+			id: location.pathname,
+			distractionFreeMode: false,
+			createIssueManually: true,
+			proxy: 'https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token',
+		})
+
+		gitalk.render('gitalk-container')
+	</script>
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info" style="color='#9e9e9e'">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2020-2021 Memorykk
+    
+	<a href="http://beian.miit.gov.cn" target="_blank">陕ICP备20005895号-1</a>
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+
+</body>
+</html>

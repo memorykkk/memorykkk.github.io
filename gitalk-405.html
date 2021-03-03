@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>记一次使用Github登录Gitalk跳至首页的解决过程 | Memorykk | never too late to learn</title>
+
+  
+  <meta name="author" content="Memorykk">
+  
+
+  
+  <meta name="description" content="computer,program,developer,java,linux">
+  
+
+  
+  <meta name="keywords" content="computer,study,log,tool,fragment,program,developer,java,linux">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="记一次使用Github登录Gitalk跳至首页的解决过程"/>
+
+  <meta property="og:site_name" content="Memorykk"/>
+
+  
+  <meta property="og:image" content="/images/favicon.ico"/>
+  
+
+  <link href="/images/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Memorykk" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Memorykk</a>
+    </h1>
+    <p class="site-description">never too late to learn</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+        <li><a href="/atom.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main  class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>记一次使用Github登录Gitalk跳至首页的解决过程</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/gitalk-405.html" rel="bookmark">
+        <time class="entry-date published" datetime="2021-02-19T08:45:48.000Z">
+          2021-02-19
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>使用自定义域名之后的 Github page 在使用 Github 登录 Github 时跳转首页，无限循环</p>
+<span id="more"></span>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>博客使用的是Hexo+Github+Gitalk，使用 Github 登录 Gitalk 之后跳转至首页，无限循环，地址栏URL显示为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;memorykk.cn&#x2F;?error&#x3D;redirect_uri_mismatch&amp;error_description&#x3D;The+redirect_uri+MUST+match+the+registered+callback+URL+for+this+application.&amp;error_uri&#x3D;https%3A%2F%2Fdocs.github.com%2Fapps%2Fmanaging-oauth-apps%2Ftroubleshooting-authorization-request-errors%2F%23redirect-uri-mismatch</span><br></pre></td></tr></table></figure>
+
+<h1 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h1><p>为了更清楚地检查，将此 URL 中的 Unicode 转为中文：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;memorykk.cn&#x2F;?</span><br><span class="line">error&#x3D;redirect_uri_mismatch&amp;</span><br><span class="line">error_description&#x3D;The+redirect_uri+MUST+match+the+registered+callback+URL+for+this+application.&amp;</span><br><span class="line">error_uri&#x3D;https:&#x2F;&#x2F;docs.github.com&#x2F;apps&#x2F;managing-oauth-apps&#x2F;troubleshooting-authorization-request-errors&#x2F;#redirect-uri-mismatch</span><br></pre></td></tr></table></figure>
+
+<p>根据描述，<kbd>redirect error</kbd> <kbd>registered callback URL</kbd>不匹配。</p>
+<p>打开<kbd>F12</kbd>查看<kbd>Network</kbd>：</p>
+<p><img src="/images/gitalk-405/reirect_uri.png" alt="reirect_uri.png"></p>
+<p><kbd>this application</kbd>我使用的是<kbd>OAuth Apps</kbd>，查看其Authorization callback URL，果不其然：</p>
+<p><img src="/images/gitalk-405/Auth_callback_URL.png" alt="Auth_callback_URL.png"></p>
+<p><code>http</code>和<code>https</code>的差别还是很大的！修改Authorization callback URL为<code>https</code>之后成功了。</p>
+<p>点击<kbd>使用GitHub登录</kbd>之后，又出现 405 问题，<br><img src="/images/gitalk-405/405.png" alt="405.png"><br>打开<kbd>F12</kbd>查看<kbd>Network</kbd>：<br><img src="/images/gitalk-405/url1.png" alt="url1.png"><br>转换为中文：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Request URL: https:&#x2F;&#x2F;memorykk.cn&#x2F;TeamSpeak&#x2F;%7B%7B%20theme.gitalk.proxy%20%7D%7D</span><br><span class="line"></span><br><span class="line">Request URL: https:&#x2F;&#x2F;memorykk.cn&#x2F;TeamSpeak&#x2F;&#123;&#123; theme.gitalk.proxy &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>好家伙，这还是源代码形式啊，坑定是后台有什么问题！<br>检查<kbd>theme\layout\components\comment.ejs</kbd>，这行代码果然是从这里出来的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var gitalk &#x3D; new Gitalk(&#123;</span><br><span class="line">			clientID: &#39;&lt;%&#x3D; theme.gitalk_client_id %&gt;&#39;,</span><br><span class="line">			clientSecret: &#39;&lt;%&#x3D; theme.gitalk_client_secret %&gt;&#39;,</span><br><span class="line">			repo: &#39;&lt;%&#x3D; theme.gitalk_repo %&gt;&#39;,</span><br><span class="line">			owner: &#39;&lt;%&#x3D; theme.gitalk_owner %&gt;&#39;,</span><br><span class="line">			admin: [&#39;&lt;%- theme.gitalk_admin.join(&quot;&#39;, &#39;&quot;) %&gt;&#39;],</span><br><span class="line">			id: location.pathname,</span><br><span class="line">			distractionFreeMode: false,</span><br><span class="line">			createIssueManually: true,</span><br><span class="line">			proxy: &#39;&#123;&#123; theme.gitalk.proxy &#125;&#125;&#39;,</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
+<p>之前对node.js也不了解（虽然现在也一样，允悲），没注意格式。仿照上面几行代码改成：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">proxy: &#39;&lt;%&#x3D; theme.gitalk.proxy %&gt;&#39;,</span><br></pre></td></tr></table></figure>
+<p>还是报 405 错误，打开<kbd>F12</kbd>查看：<br><img src="/images/gitalk-405/405_2.png" alt="405_2.png"></p>
+<p>总感觉之前白嫖的 CorsAnywhere Proxy 链接压根没有传递过去，直接手动写死在里面：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">proxy: &#39;https:&#x2F;&#x2F;netnr-proxy.cloudno.de&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&#39;,</span><br></pre></td></tr></table></figure>
+
+<p>好家伙，成功了，ohhhhhhhhhhh，虽然这种做法极不优雅！</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>网页出错先用<kbd>F12</kbd>看看哪部分的问题，顺藤摸瓜，缩小范围。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Log/">Log</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Gitalk/">Gitalk</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comment" class="comment">
+		<div id="gitalk-container"></div>
+	</section>
+	<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+	<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+	<script>
+		var gitalk = new Gitalk({
+			clientID: '43df1f730957f2695673',
+			clientSecret: '29fa4bdef022da54ce3ebc4ec844d1b5c418d42a',
+			repo: 'memorykkk.github.io',
+			owner: 'memorykkk',
+			admin: ['memorykkk'],
+			id: location.pathname,
+			distractionFreeMode: false,
+			createIssueManually: true,
+			proxy: 'https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token',
+		})
+
+		gitalk.render('gitalk-container')
+	</script>
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info" style="color='#9e9e9e'">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2020-2021 Memorykk
+    
+	<a href="http://beian.miit.gov.cn" target="_blank">陕ICP备20005895号-1</a>
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+
+</body>
+</html>
